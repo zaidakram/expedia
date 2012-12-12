@@ -4,10 +4,11 @@ require 'expedia/http_service/response'
 module Expedia
   module HTTPService
 
+  	API_SERVER = 'api.ean.com'
+  	RESERVATION_SERVER = 'book.api.ean.com'
+      
     class << self
 
-    	API_SERVER = 'api.ean.com'
-    	RESERVATION_SERVER = 'book.api.ean.com'
 
       # The address of the appropriate Expedia server.
       #
@@ -31,7 +32,7 @@ module Expedia
       # @param verb the HTTP method to use.
       #             If not get or post, this will be turned into a POST request with the appropriate :method
       #             specified in the arguments.
-      # @param options (see Expedia::API#api)
+      # @param options (see Expedia::API)
       #
       # @raise an appropriate connection error if unable to make the request to Expedia
       #
@@ -39,7 +40,7 @@ module Expedia
       def make_request(path, args, verb, options = {})
         args.merge!(add_common_parameters)
         # figure out our options for this request
-        request_options = {:params => (verb == "get" ? args : {})}
+        request_options = {:params => (verb == :get ? args : {})}
         request_options[:use_ssl] = true if options[:reservation_api] # require https if there's a token
         if request_options[:use_ssl]
           ssl = (request_options[:ssl] ||= {})
@@ -49,15 +50,14 @@ module Expedia
         # set up our Faraday connection
         # we have to manually assign params to the URL or the
         conn = Faraday.new(server(options), request_options)
-
-        response = conn.send(verb, path, (verb == "post" ? args : {}))
+        response = conn.send(verb, path, (verb == :post ? args : {}))
 
         # Log URL information
-        Expedia::Utils.debug "# Expedia [{verb.upcase}] - #{path} params: #{args.inspect} : #{response.status}"
+        Expedia::Utils.debug "# Expedia [#{verb.upcase}] - #{server(options) + path} params: #{args.inspect} : #{response.status}"
         response = Expedia::HTTPService::Response.new(response.status.to_i, response.body, response.headers)
-        # TODO: Handle 403 Error
+        
         if response.exception?
-          raise Expedia::APIError.new(response.status, response.body)
+          Expedia::APIError.new(response.status, response.body)
         else
           response
         end
@@ -92,13 +92,11 @@ module Expedia
 
       # Common Parameters required for every Call to Expedia Server.
       def add_common_parameters
-        { :cid => Expedia.cid, :sig => signature, :apiKey => Expedia.api_key,
+        { :cid => Expedia.cid, :sig => signature, :apiKey => Expedia.api_key, :minorRev => Expedia.minor_rev,
           :_type => 'json', :locale => Expedia.locale, :currencyCode => Expedia.currency_code }
       end
 
-  end
-
-
-
+    end
+    
   end
 end

@@ -14,7 +14,8 @@ module Expedia
       end
 
       def exception?
-        @body && @body[@body.keys[0]]['EanWsError'] ? true : false
+        @headers['content-type'] != 'application/json' ||
+          (@body && @body[@body.keys[0]]['EanWsError']) ? true : false
       end
 
     end
