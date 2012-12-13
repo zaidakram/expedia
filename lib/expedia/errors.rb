@@ -4,20 +4,19 @@ module Expedia
 
   # Expedia respondes with status of 200 even if there is an exception (most of the time)
   class APIError < ::Expedia::ExpediaError
+    
+    # @status The HTTP status code of the response
+    # @error_body The parsed response body
+    # @error_info One of the following:
+    # @category Value indicating the nature of the exception or the reason it occurred
+    # @presentation_message Presentation error message returned
+    # @verbose_message More specific detailed error message
+    # @handling value indicating the severity of the exception and how it may be handled
+
     attr_accessor :category, :presentation_message, :verbose_message,
                   :status, :error_body, :handling
 
     # Create a new API Error
-    #
-    # @param status [Integer] The HTTP status code of the response
-    # @param error_body The parsed response body
-    # @param error_info One of the following:
-    #                   [Hash] The error information extracted from the request 
-    #                          ("type", "code", "error_subcode", "message")
-    #                   [String] The error description
-    #                   If error_info is nil or not provided, the method will attempt to extract
-    #                   the error info from the response_body
-    #
     # @return the newly created APIError
     def initialize(status, body)
       @error_body = body
@@ -38,6 +37,12 @@ module Expedia
       
       super(@verbose_message)
 
+    end
+
+    # Just to enable user to call this method on response object to know if any exception has occured
+    # Free user form the Hastle of checking the class of object on every request.
+    def exception?
+      true
     end
   end
 

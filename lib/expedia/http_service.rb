@@ -30,31 +30,25 @@ module Expedia
       # @param path the server path for this request
       # @param args (see Expedia::API#api)
       # @param verb the HTTP method to use.
-      #             If not get or post, this will be turned into a POST request with the appropriate :method
-      #             specified in the arguments.
-      # @param options (see Expedia::API)
+      # @param options same options passed to server method.
       #
       # @raise an appropriate connection error if unable to make the request to Expedia
       #
-      # @return [Expedia::HTTPService::Response] a response object representing the results from Facebook
+      # @return [Expedia::HTTPService::Response] on success. A response object representing the results from Expedia
+      # @return [Expedia::APIError] on Error.
       def make_request(path, args, verb, options = {})
         args.merge!(add_common_parameters)
         # figure out our options for this request
         request_options = {:params => (verb == :get ? args : {})}
-        # if request_options[:use_ssl]
-        #   ssl = (request_options[:ssl] ||= {})
-        #   ssl[:verify] = true unless ssl.has_key?(:verify)
-        # end
-
         # set up our Faraday connection
-        # we have to manually assign params to the URL or the
         conn = Faraday.new(server(options), request_options)
         response = conn.send(verb, path, (verb == :post ? args : {}))
 
-        # Log URL information
+        # Log URL and params information
         Expedia::Utils.debug "\nExpedia [#{verb.upcase}] - #{server(options) + path} params: #{args.inspect} : #{response.status}\n"
         response = Expedia::HTTPService::Response.new(response.status.to_i, response.body, response.headers)
         
+        # If there is an exception make a [Expedia::APIError] object to return
         if response.exception?
           Expedia::APIError.new(response.status, response.body)
         else
@@ -71,6 +65,7 @@ module Expedia
       #   => "a=2&b=My+String"
       #
       # @return the appropriately-encoded string
+      # Method currently not in use.
       def encode_params(param_hash)
         ((param_hash || {}).sort_by{|k, v| k.to_s}.collect do |key_and_value|
           key_and_value[1] = MultiJson.dump(key_and_value[1]) unless key_and_value[1].is_a? String
@@ -90,6 +85,7 @@ module Expedia
       end
 
       # Common Parameters required for every Call to Expedia Server.
+      # 
       def add_common_parameters
         { :cid => Expedia.cid, :sig => signature, :apiKey => Expedia.api_key, :minorRev => Expedia.minor_rev,
           :_type => 'json', :locale => Expedia.locale, :currencyCode => Expedia.currency_code }
