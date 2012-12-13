@@ -12,6 +12,7 @@ require 'expedia/http_service'
 # miscellaneous
 require 'expedia/utils'
 require 'expedia/version'
+require 'expedia/railtie' if defined?(Rails)
 
 module Expedia
 
@@ -24,6 +25,10 @@ module Expedia
 		# a fresh initializer with all configuration values.
 		def setup
 		  yield self
+		end
+
+		def root_path
+			Gem::Specification.find_by_name("expedia").gem_dir
 		end
 
 	end

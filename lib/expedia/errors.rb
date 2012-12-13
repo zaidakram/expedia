@@ -2,7 +2,7 @@ module Expedia
 
   class ExpediaError < StandardError; end
 
-  # Expedia responded with status of 200 even if there is an exception (most of the time)
+  # Expedia respondes with status of 200 even if there is an exception (most of the time)
   class APIError < ::Expedia::ExpediaError
     attr_accessor :category, :presentation_message, :verbose_message,
                   :status, :error_body, :handling

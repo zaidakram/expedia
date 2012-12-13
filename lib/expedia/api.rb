@@ -37,7 +37,7 @@ module Expedia
 		end
 
 		def get_reservation(args)
-			HTTPService.make_request('/ean-services/rs/hotel/v3/res', args, :post, { :reservation_api => true })
+			HTTPService.make_request('/ean-services/rs/hotel/v3/res', args, :post, { :reservation_api => true, :use_ssl => true })
 		end
 
 		def get_payment_info(args)
@@ -50,6 +50,13 @@ module Expedia
 
 		def get_ping(args)
 			services('/ean-services/rs/hotel/v3/ping', args)
+		end
+
+		def get_static_reservation(args)
+			get_reservation(args.merge!({:firstName => "Test Booking", :lastName => "Test Booking", :creditCardType => "CA",
+						  :creditCardNumber => 5401999999999999, :creditCardIdentifier => 123,
+						  :creditCardExpirationMonth => 11, :creditCardExpirationYear => Time.now.year + 2,
+						  :address1 => 'travelnow' }))
 		end
 
 		private

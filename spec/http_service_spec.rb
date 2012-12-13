@@ -53,19 +53,4 @@ describe "Expedia::HTTPService" do
 		end
 	end
 
-	describe "make_request" do
-
-		# it "Gets an Expedia::HTTPService::Response object if everthing goes fine." do
-		# 	Expedia::HTTPService.make_request("/ean-services/rs/hotel/v3/list",
-		# 		{:propertyName => 'Hotel Moa Berlin', :destinationString => 'berlin'},
-		# 		:get).class.to_s.should eql 'Expedia::HTTPService::Response'
-		# end
-
-		it "Gets an Expedia::APIError object if any exception occurs." do
-			Expedia::HTTPService.make_request("/somthing", {}, :get).class.to_s.should eql 'Expedia::APIError'
-		end
-
-	end
-
-
 end

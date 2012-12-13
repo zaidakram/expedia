@@ -7,8 +7,8 @@ Gem::Specification.new do |gem|
   gem.name          = "expedia"
   gem.version       = Expedia::VERSION
   gem.authors       = ["Zaid Akram"]
-  gem.email         = ["zaid.akram@coeus-solutions.de"]
-  gem.description   = %q{TODO: Write a gem description}
+  gem.email         = ["zaidakrammughal@gmail.com"]
+  gem.description   = %q{Expedia is a ruby wrapper for "EAN (Expedia Affiliate Network)}
   gem.summary       = %q{TODO: Write a gem summary}
   gem.homepage      = ""
 
@@ -19,8 +19,10 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency(%q<multi_json>,    ["~> 1.3"])
   gem.add_runtime_dependency(%q<faraday>,       ["~> 0.8"])
+  gem.add_runtime_dependency(%q<colorize>,      ["~> 0.5.8"])
   gem.add_runtime_dependency(%q<addressable>,   ["~> 2.2"])
   gem.add_development_dependency(%q<rspec>,     ["~> 2.8"])
   gem.add_development_dependency(%q<rake>,      ["~> 0.8"])
+
   
 end

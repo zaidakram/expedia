@@ -41,11 +41,10 @@ module Expedia
         args.merge!(add_common_parameters)
         # figure out our options for this request
         request_options = {:params => (verb == :get ? args : {})}
-        request_options[:use_ssl] = true if options[:reservation_api] # require https if there's a token
-        if request_options[:use_ssl]
-          ssl = (request_options[:ssl] ||= {})
-          ssl[:verify] = true unless ssl.has_key?(:verify)
-        end
+        # if request_options[:use_ssl]
+        #   ssl = (request_options[:ssl] ||= {})
+        #   ssl[:verify] = true unless ssl.has_key?(:verify)
+        # end
 
         # set up our Faraday connection
         # we have to manually assign params to the URL or the
@@ -53,7 +52,7 @@ module Expedia
         response = conn.send(verb, path, (verb == :post ? args : {}))
 
         # Log URL information
-        Expedia::Utils.debug "# Expedia [#{verb.upcase}] - #{server(options) + path} params: #{args.inspect} : #{response.status}"
+        Expedia::Utils.debug "\nExpedia [#{verb.upcase}] - #{server(options) + path} params: #{args.inspect} : #{response.status}\n"
         response = Expedia::HTTPService::Response.new(response.status.to_i, response.body, response.headers)
         
         if response.exception?
