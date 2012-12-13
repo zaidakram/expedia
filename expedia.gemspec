@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Expedia::VERSION
   gem.authors       = ["Zaid Akram"]
   gem.email         = ["zaidakrammughal@gmail.com"]
-  gem.description   = %q{Expedia is a ruby wrapper for "EAN (Expedia Affiliate Network)}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = "Expedia is a lightweight, flexible Ruby SDK for EAN. It allows read/write access to the EAN APIs."
+  gem.summary       = "Expedia is a ruby wrapper for 'EAN (Expedia Affiliate Network)'"
+  gem.homepage      = "https://github.com/zaidakram/expedia"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

@@ -1,10 +1,10 @@
 h1. Expedia
 
-Expedia is a ruby wrapper for ["EAN (Expedia Affiliate Network)":www.expediaaffiliate.com] APIs.
+Expedia is a ruby wrapper for ["EAN - Expedia Affiliate Network":www.expediaaffiliate.com] APIs.
 
 Other details of this gem are:
 
-* It use the the latest verion of the EAN API. i.e ["Version 3":http://developer.ean.com/docs/read/hotels/version_3]
+* It uses the the latest verion of the EAN API. i.e ["Version 3":http://developer.ean.com/docs/read/hotels/version_3]
 * Only REST API support (No XML or SOAP support)
 
 h2. Installation
@@ -48,7 +48,7 @@ response = api.get_list({:propertyName => 'Hotel Moa Berlin', :destinationString
 Following methods are expeosed by Expedia::API object
 
 Note: All method naming is done in correspondence with Expedia services and ruby conventions
-see "Hotel API Documentation (Services section)":http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w
+see "Hotel API Documentation - Services section":http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w
 
 <pre>
 get_list({})
