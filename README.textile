@@ -1,6 +1,6 @@
 h1. Expedia
 
-Expedia is a ruby wrapper for ["EAN - Expedia Affiliate Network":www.expediaaffiliate.com] APIs.
+Expedia is a ruby wrapper for ["EAN - Expedia Affiliate Network"::http://www.expediaaffiliate.com] APIs.
 
 Other details of this gem are:
 
@@ -27,7 +27,18 @@ Or install it yourself as:
 $ gem install expedia
 </pre>
 
-Then execute the following command to create an intializer:
+Either you can configure Expedia in code on run-time
+
+<pre>
+Expedia.cid = 55505
+Expedia.api_key = 'your_api_key'
+Expedia.shared_secret = 'your_shared_secret'
+Expedia.locale = 'en_US'
+Expedia.currency_code = 'USD'
+Expedia.minor_rev = 13
+</pre>
+
+Or you can execute the following command to create an intializer:
 
 <pre>
 $ rake expedia:initialize
