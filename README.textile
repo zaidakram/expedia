@@ -114,7 +114,7 @@ h3. Test Booking (Static Reservation)
 
 For Static reservation use get_static_reservation() method.
 
-CAUTION: Do Not send adress and booking information (creditCardNumber, creditCardIdentifier, creditCardExpirationMonth, creditCardExpirationYear, address1) in parameters to the method. Especially do not pass address1 parameter They are already been taken care of. For more on Static booking see ["Static Test Booking Credit Card Information":http://developer.ean.com/docs/Test_Booking_Procedures]
+**CAUTION**: Do Not send adress and booking information (creditCardNumber, creditCardIdentifier, creditCardExpirationMonth, creditCardExpirationYear, address1) in parameters to the method. Especially do not pass address1 parameter They are already been taken care of. For more on Static booking see ["Static Test Booking Credit Card Information":http://developer.ean.com/docs/Test_Booking_Procedures]
 
 A static Booking example.
 
