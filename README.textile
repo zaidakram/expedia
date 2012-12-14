@@ -1,11 +1,12 @@
 h1. Expedia
 
-Expedia is a ruby wrapper for ["EAN - Expedia Affiliate Network"::http://www.expediaaffiliate.com] APIs.
+Expedia is a ruby wrapper for ["EAN - Expedia Affiliate Network":http://www.expediaaffiliate.com] APIs.
 
 Other details of this gem are:
 
 * It uses the the latest verion of the EAN API. i.e ["Version 3":http://developer.ean.com/docs/read/hotels/version_3]
 * Only REST API support (No XML or SOAP support)
+* It uses Signature Pro method for Authentication. See ["Live API Key Authentication and Access":http://developer.ean.com/docs/read/getting_started/authentication]
 
 h2. Installation
 
@@ -54,11 +55,13 @@ api = Expedia::API.new
 
 # Method to search hotel. see http://developer.ean.com/docs/read/hotels/version_3/request_hotel_list
 response = api.get_list({:propertyName => 'Hotel Moa Berlin', :destinationString => 'berlin'})
+
+response.exception? # false if success
 </pre>
 
 Following methods are expeosed by Expedia::API object
 
-Note: All method naming is done in correspondence with Expedia services and ruby conventions
+**Note**: All method naming is done in correspondence with Expedia services and ruby conventions
 see "Hotel API Documentation - Services section":http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w
 
 <pre>
@@ -77,7 +80,7 @@ get_ping({})
 get_static_reservation({}) # To test Reservation (Static Reservation)
 </pre>
 
-Every method accepts Hash of parameter specific to every API. see ["EAN Docs":http://developer.ean.com/docs/read/hotels/version_3] for more details. 
+Every method accepts Hash of parameter specific to every API. see ["EAN Docs":http://developer.ean.com/docs/read/hotels/version_3] for more details.
 
 h3. Success
 
@@ -94,7 +97,7 @@ h3. Error
 
 In case of any error a Expedia::APIError object is returned.
 
-Note: Expedia responds with status of 200 even if there is an exception (most of the times). So no Exception is raised!
+**Note**: Expedia responds with status of 200 even if there is an exception (most of the times). So no Exception is raised!
 
 <pre>
 # See http://developer.ean.com/docs/read/error_handling/Hotel_V3_Exception_Details
