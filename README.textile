@@ -47,15 +47,16 @@ $ rake expedia:initialize
 
 h2. Usage
 
-After configuring keys for your EAN application kyes, Default locale, currency and minor_rev use
+After configuring keys, default locale, currency and minor_rev for EAN use
 
 <pre>
 # Instentiate api object
 api = Expedia::API.new
 
-# Method to search hotel. see http://developer.ean.com/docs/read/hotels/version_3/request_hotel_list
+# Method to search for a hotel. see http://developer.ean.com/docs/read/hotels/version_3/request_hotel_list
 response = api.get_list({:propertyName => 'Hotel Moa Berlin', :destinationString => 'berlin'})
 
+# execute this method to know if there is any exception
 response.exception? # false if success
 </pre>
 
@@ -89,7 +90,7 @@ and you can use
 
 <pre>
 response.status
-response.body
+response.body # Returns Parsed body of response.
 response.headers
 </pre>
 
@@ -112,7 +113,7 @@ response.handling # value indicating the severity of the exception and how it ma
 
 h3. Test Booking (Static Reservation)
 
-For Static reservation use get_static_reservation() method.
+For Static reservation use @get_static_reservation()@ method.
 
 CAUTION: Do Not send adress and booking information (creditCardNumber, creditCardIdentifier, creditCardExpirationMonth, creditCardExpirationYear, address1) in parameters to the method. Especially do not pass address1 parameter They are already been taken care of. For more on Static booking see ["Static Test Booking Credit Card Information":http://developer.ean.com/docs/Test_Booking_Procedures]
 
