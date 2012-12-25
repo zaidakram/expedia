@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Expedia by zaidakram</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Expedia</h1>
+        <p>Expedia is a ruby wrapper for EAN (Expedia Affiliate Network)</p>
+
+        <p class="view"><a href="https://github.com/zaidakram/expedia">View the Project on GitHub <small>zaidakram/expedia</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/zaidakram/expedia/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/zaidakram/expedia/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/zaidakram/expedia">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Expedia</h1>
+
+<p>Expedia is a ruby wrapper for <a href="http://www.expediaaffiliate.com">EAN - Expedia Affiliate Network</a> APIs.</p>
+
+<p>Other details of this gem are:</p>
+
+<ul>
+<li>It uses the the latest verion of the EAN API. i.e <a href="http://developer.ean.com/docs/read/hotels/version_3">Version 3</a>
+</li>
+<li>Only REST API support (No XML or SOAP support)</li>
+<li>It uses Signature Pro method for Authentication. See <a href="http://developer.ean.com/docs/read/getting_started/authentication">Live API Key Authentication and Access</a>
+</li>
+</ul><h2>Installation</h2>
+
+<p>For Rails Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'expedia'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install expedia
+</code></pre>
+
+<p>Either you can configure Expedia in code on run-time</p>
+
+<pre><code>Expedia.cid = 55505
+Expedia.api_key = 'your_api_key'
+Expedia.shared_secret = 'your_shared_secret'
+Expedia.locale = 'en_US'
+Expedia.currency_code = 'USD'
+Expedia.minor_rev = 13
+</code></pre>
+
+<p>Or you can execute the following command to create an intializer:</p>
+
+<pre><code>$ rake expedia:initialize
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>After configuring keys for your EAN application, Default locale, currency and minor_rev use</p>
+
+<pre><code># Instentiate api object
+api = Expedia::API.new
+
+# Method to search hotel. see http://developer.ean.com/docs/read/hotels/version_3/request_hotel_list
+response = api.get_list({:propertyName =&gt; 'Hotel Moa Berlin', :destinationString =&gt; 'berlin'})
+
+response.exception? # false if success
+</code></pre>
+
+<p>Following methods are expeosed by <code>Expedia::API object</code></p>
+
+<p><strong>Note</strong>: All method naming is done in correspondence with Expedia services and ruby conventions
+see <a href="http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w">Hotel API Documentation - Services section</a></p>
+
+<pre><code>get_list({})
+geo_search({})
+get_availability({})
+get_room_images({})
+get_information({})
+get_rules({})
+get_itinerary({})
+get_alternate_properties({})
+get_reservation({})
+get_payment_info({})
+get_cancel({})
+get_ping({})
+get_static_reservation({}) # To test Reservation (Static Reservation)
+</code></pre>
+
+<p>Every method accepts Hash of parameter specific to every API. see <a href="http://developer.ean.com/docs/read/hotels/version_3">EAN Docs</a> for more details.</p>
+
+<h3>Success</h3>
+
+<p>if request is successfull you will get a <code>Expedia::HTTPService::Response</code> object in response.
+and you can use</p>
+
+<pre><code>response.status
+response.body
+response.headers
+</code></pre>
+
+<h3>Error</h3>
+
+<p>In case of any error a <code>Expedia::APIError</code> object is returned.</p>
+
+<p><strong>Note</strong>: Expedia responds with status of 200 even if there is an exception (most of the times). So no Exception is raised!</p>
+
+<pre><code># See http://developer.ean.com/docs/read/error_handling/Hotel_V3_Exception_Details
+
+response.status # Response status
+response.error_body # Complete error body
+response.category # Value indicating the nature of the exception or the reason it occurred
+response.presentation_message # Presentation error message returned
+response.verbose_message # More specific detailed error message
+response.handling # value indicating the severity of the exception and how it may be handled
+</code></pre>
+
+<h3>Test Booking (Static Reservation)</h3>
+
+<p>For Static reservation use <code>get_static_reservation()</code> method.</p>
+
+<p>CAUTION: Do Not send adress and booking information (creditCardNumber, creditCardIdentifier, creditCardExpirationMonth, creditCardExpirationYear, address1) in parameters to the method. Especially do not pass address1 parameter They are already been taken care of. For more on Static booking see <a href="http://developer.ean.com/docs/Test_Booking_Procedures">Static Test Booking Credit Card Information</a></p>
+
+<p>A static Booking example.</p>
+
+<pre><code>response = api.get_static_reservation({ :arrivalDate =&gt; "10/10/2013", :departureDate =&gt; "10/12/2013",
+    :hotelID =&gt; 359433, :supplierType =&gt; "E", :rateKey =&gt; "084eab14-335e-46d6-aa2e-766fce6be32c",
+    :roomTypeCode =&gt; 200007964, :rateCode =&gt; 200865704, :chargeableRate =&gt; "142.8",
+  :room1 =&gt; "1", :room1FirstName =&gt; "test", :room1LastName =&gt; "testers", :room1BedTypeId =&gt; "15",
+  :room1SmokingPreference =&gt; "NS", :email =&gt; "test@tesing.com", :city =&gt; 'Bellevue',
+  :stateProvinceCode =&gt; 'WA', :countryCode =&gt; 'US', :postalCode =&gt; 98004 })
+</code></pre>
+
+<h3>Logging</h3>
+
+<p><code>Expedia::Utils.logger</code> points to STDOUT by default. You can use it to Log in Rails Applications</p>
+
+<pre><code>Expedia::Utils.logger = Rails.logger
+
+# And loggig methods available
+[:debug, :info, :warn, :error, :fatal]
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/zaidakram">zaidakram</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
