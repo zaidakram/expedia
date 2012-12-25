@@ -79,13 +79,15 @@ Expedia.minor_rev = 13
 <pre><code># Instentiate api object
 api = Expedia::API.new
 
-# Method to search hotel. see http://developer.ean.com/docs/read/hotels/version_3/request_hotel_list
-response = api.get_list({:propertyName =&gt; 'Hotel Moa Berlin', :destinationString =&gt; 'berlin'})
+# Method to search hotel.
+# developer.ean.com/docs/read/hotels/version_3/request_hotel_list
+response = api.get_list({:propertyName =&gt; 'Hotel Moa Berlin',
+  :destinationString =&gt; 'berlin'})
 
 response.exception? # false if success
 </code></pre>
 
-<p>Following methods are expeosed by <code>Expedia::API object</code></p>
+<p>Following methods are expeosed by <inline-code>Expedia::API object</inline-code></p>
 
 <p><strong>Note</strong>: All method naming is done in correspondence with Expedia services and ruby conventions
 see <a href="http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w">Hotel API Documentation - Services section</a></p>
@@ -109,7 +111,7 @@ get_static_reservation({}) # To test Reservation (Static Reservation)
 
 <h3>Success</h3>
 
-<p>if request is successfull you will get a <code>Expedia::HTTPService::Response</code> object in response.
+<p>if request is successfull you will get a <inline-code>Expedia::HTTPService::Response</inline-code> object in response.
 and you can use</p>
 
 <pre><code>response.status
@@ -119,11 +121,11 @@ response.headers
 
 <h3>Error</h3>
 
-<p>In case of any error a <code>Expedia::APIError</code> object is returned.</p>
+<p>In case of any error a <inline-code>Expedia::APIError</inline-code> object is returned.</p>
 
 <p><strong>Note</strong>: Expedia responds with status of 200 even if there is an exception (most of the times). So no Exception is raised!</p>
 
-<pre><code># See http://developer.ean.com/docs/read/error_handling/Hotel_V3_Exception_Details
+<pre><code># developer.ean.com/docs/read/error_handling/Hotel_V3_Exception_Details
 
 response.status # Response status
 response.error_body # Complete error body
@@ -135,7 +137,7 @@ response.handling # value indicating the severity of the exception and how it ma
 
 <h3>Test Booking (Static Reservation)</h3>
 
-<p>For Static reservation use <code>get_static_reservation()</code> method.</p>
+<p>For Static reservation use <inline-code>get_static_reservation()</inline-code> method.</p>
 
 <p>CAUTION: Do Not send adress and booking information (creditCardNumber, creditCardIdentifier, creditCardExpirationMonth, creditCardExpirationYear, address1) in parameters to the method. Especially do not pass address1 parameter They are already been taken care of. For more on Static booking see <a href="http://developer.ean.com/docs/Test_Booking_Procedures">Static Test Booking Credit Card Information</a></p>
 
@@ -151,7 +153,7 @@ response.handling # value indicating the severity of the exception and how it ma
 
 <h3>Logging</h3>
 
-<p><code>Expedia::Utils.logger</code> points to STDOUT by default. You can use it to Log in Rails Applications</p>
+<p><inline-code>Expedia::Utils.logger</inline-code> points to <inline-code>STDOUT</inline-code> by default. You can use it to Log in Rails Applications</p>
 
 <pre><code>Expedia::Utils.logger = Rails.logger
 
