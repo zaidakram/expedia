@@ -12,9 +12,9 @@ h2. Installation
 
 For Rails Add this line to your application's Gemfile:
 
-<pre>
+```ruby
 gem 'expedia'
-</pre>
+```
 
 And then execute:
 
