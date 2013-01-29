@@ -121,11 +121,11 @@ A static Booking example.
 
 <pre>
 response = api.get_static_reservation({	:arrivalDate => "10/10/2013", :departureDate => "10/12/2013",
-	:hotelID => 359433, :supplierType => "E", :rateKey => "084eab14-335e-46d6-aa2e-766fce6be32c",
-	:roomTypeCode => 200007964, :rateCode => 200865704, :chargeableRate => "142.8",
-  :room1 => "1", :room1FirstName => "test", :room1LastName => "testers", :room1BedTypeId => "15",
-  :room1SmokingPreference => "NS", :email => "test@tesing.com", :city => 'Bellevue',
-  :stateProvinceCode => 'WA', :countryCode => 'US', :postalCode => 98004 })
+                                        :hotelID => 359433, :supplierType => "E", :rateKey => "084eab14-335e-46d6-aa2e-766fce6be32c",
+                                        :roomTypeCode => 200007964, :rateCode => 200865704, :chargeableRate => "142.8",
+                                        :room1 => "1", :room1FirstName => "test", :room1LastName => "testers", :room1BedTypeId => "15",
+                                        :room1SmokingPreference => "NS", :email => "test@tesing.com", :city => 'Bellevue',
+                                        :stateProvinceCode => 'WA', :countryCode => 'US', :postalCode => 98004 })
 </pre>
 
 h3. Logging

@@ -4,9 +4,9 @@ require 'expedia/http_service/response'
 module Expedia
   module HTTPService
 
-  	API_SERVER = 'api.ean.com'
-  	RESERVATION_SERVER = 'book.api.ean.com'
-      
+    API_SERVER = 'api.ean.com'
+    RESERVATION_SERVER = 'book.api.ean.com'
+
     class << self
 
 
@@ -47,7 +47,7 @@ module Expedia
         # Log URL and params information
         Expedia::Utils.debug "\nExpedia [#{verb.upcase}] - #{server(options) + path} params: #{args.inspect} : #{response.status}\n"
         response = Expedia::HTTPService::Response.new(response.status.to_i, response.body, response.headers)
-        
+
         # If there is an exception make a [Expedia::APIError] object to return
         if response.exception?
           Expedia::APIError.new(response.status, response.body)
@@ -68,14 +68,14 @@ module Expedia
       # Method currently not in use.
       def encode_params(param_hash)
         ((param_hash || {}).sort_by{|k, v| k.to_s}.collect do |key_and_value|
-          key_and_value[1] = MultiJson.dump(key_and_value[1]) unless key_and_value[1].is_a? String
-          "#{key_and_value[0].to_s}=#{CGI.escape key_and_value[1]}"
+           key_and_value[1] = MultiJson.dump(key_and_value[1]) unless key_and_value[1].is_a? String
+           "#{key_and_value[0].to_s}=#{CGI.escape key_and_value[1]}"
         end).join("&")
       end
 
 
       # Creates a Signature for Expedia using MD5 Checksum Auth.
-      # Shared and Api keys are required for Signature along with the current utc time. 
+      # Shared and Api keys are required for Signature along with the current utc time.
       def signature
         if Expedia.cid && Expedia.api_key && Expedia.shared_secret
           Digest::MD5.hexdigest(Expedia.api_key+Expedia.shared_secret+Time.now.utc.to_i.to_s)
@@ -85,13 +85,13 @@ module Expedia
       end
 
       # Common Parameters required for every Call to Expedia Server.
-      # 
+      #
       def add_common_parameters
         { :cid => Expedia.cid, :sig => signature, :apiKey => Expedia.api_key, :minorRev => Expedia.minor_rev,
           :_type => 'json', :locale => Expedia.locale, :currencyCode => Expedia.currency_code }
       end
 
     end
-    
+
   end
 end

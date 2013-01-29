@@ -1,5 +1,5 @@
 module Expedia
-  
+
   module HTTPService
 
     class Response
@@ -22,5 +22,5 @@ module Expedia
     end
 
   end
-  
+
 end

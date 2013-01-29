@@ -4,7 +4,7 @@ module Expedia
 
   # Expedia respondes with status of 200 even if there is an exception (most of the time)
   class APIError < ::Expedia::ExpediaError
-    
+
     # @status The HTTP status code of the response
     # @error_body The parsed response body
     # @error_info One of the following:
@@ -14,7 +14,7 @@ module Expedia
     # @handling value indicating the severity of the exception and how it may be handled
 
     attr_accessor :category, :presentation_message, :verbose_message,
-                  :status, :error_body, :handling
+      :status, :error_body, :handling
 
     # Create a new API Error
     # @return the newly created APIError
@@ -34,7 +34,7 @@ module Expedia
         @handling = error_body['handling']
         error_array = []
       end
-      
+
       super(@verbose_message)
 
     end
