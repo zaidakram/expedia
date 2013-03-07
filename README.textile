@@ -51,7 +51,7 @@ After configuring keys, default locale, currency and minor_rev for EAN use
 
 <pre>
 # Instentiate api object
-api = Expedia::API.new
+api = Expedia::Api.new
 
 # Method to search for a hotel. see http://developer.ean.com/docs/read/hotels/version_3/request_hotel_list
 response = api.get_list({:propertyName => 'Hotel Moa Berlin', :destinationString => 'berlin'})
