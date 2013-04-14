@@ -1,11 +1,18 @@
 module Expedia
+  # All method naming is done in correspondence with Expedia services and ruby conventions
+  # see http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w
   class Api
 
-    # All method naming is done in correspondence with Expedia services and ruby conventions
-    # see http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w
 
+    # @param args [Hash] All the params required for 'get_list' call
+    # @return [Expedia::HTTPService::Response] on success. A response object representing the results from Expedia
+    # @return [Expedia::APIError] on Error.
+    # @note A POST request is made instead of GET if 'numberOfResults' > 200
     def get_list(args)
-      services('/ean-services/rs/hotel/v3/list', args)
+      no_of_results = 'numberOfResults'
+      method = (args[no_of_results.to_sym].to_i > 200 || args[no_of_results].to_i > 200) ||
+        args[no_of_results.downcase.to_sym].to_i > 200 || args[no_of_results.downcase].to_i > 200 ? :post : :get
+      services('/ean-services/rs/hotel/v3/list', args, method)
     end
 
     def geo_search(args)
@@ -61,8 +68,8 @@ module Expedia
 
     private
 
-    def services(path, args)
-      HTTPService.make_request(path, args, :get)
+    def services(path, args, method=:get)
+      HTTPService.make_request(path, args, method)
     end
 
   end
