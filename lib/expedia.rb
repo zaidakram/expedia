@@ -2,7 +2,7 @@
 require 'digest/md5'
 require 'multi_json'
 
-# include koala modules
+# include expedia modules
 require 'expedia/errors'
 require 'expedia/api'
 
