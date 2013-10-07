@@ -37,7 +37,7 @@ module Expedia
       # @return [Expedia::HTTPService::Response] on success. A response object representing the results from Expedia
       # @return [Expedia::APIError] on Error.
       def make_request(path, args, verb, options = {})
-        args.merge!(add_common_parameters)
+        args = common_parameters.merge(args)
         # figure out our options for this request
         request_options = {:params => (verb == :get ? args : {})}
         # set up our Faraday connection
@@ -86,7 +86,7 @@ module Expedia
 
       # Common Parameters required for every Call to Expedia Server.
       #
-      def add_common_parameters
+      def common_parameters
         { :cid => Expedia.cid, :sig => signature, :apiKey => Expedia.api_key, :minorRev => Expedia.minor_rev,
           :_type => 'json', :locale => Expedia.locale, :currencyCode => Expedia.currency_code }
       end

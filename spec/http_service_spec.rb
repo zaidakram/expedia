@@ -30,7 +30,7 @@ describe "Expedia::HTTPService" do
 
   end
 
-  describe "signature and add_common_parameters" do
+  describe "signature and common_parameters" do
 
     before :each do
       Expedia.cid = ''
@@ -46,10 +46,10 @@ describe "Expedia::HTTPService" do
     end
 
     it "returns a hash containing common params" do
-      Expedia::HTTPService.add_common_parameters.keys.should include(:cid)
-      Expedia::HTTPService.add_common_parameters.keys.should include(:apiKey)
-      Expedia::HTTPService.add_common_parameters.keys.should include(:sig)
-      Expedia::HTTPService.add_common_parameters.keys.should include(:_type)
+      Expedia::HTTPService.common_parameters.keys.should include(:cid)
+      Expedia::HTTPService.common_parameters.keys.should include(:apiKey)
+      Expedia::HTTPService.common_parameters.keys.should include(:sig)
+      Expedia::HTTPService.common_parameters.keys.should include(:_type)
     end
   end
 
