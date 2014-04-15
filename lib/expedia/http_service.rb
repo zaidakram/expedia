@@ -6,6 +6,7 @@ module Expedia
 
     API_SERVER = 'api.ean.com'
     RESERVATION_SERVER = 'book.api.ean.com'
+    DEVELOPMENT_SERVER = 'dev.api.ean.com'
 
     class << self
 
@@ -18,7 +19,11 @@ module Expedia
       #
       # @return a complete server address with protocol
       def server(options = {})
-        server = "#{options[:reservation_api] ? RESERVATION_SERVER : API_SERVER}"
+        if Expedia.cid == 55505
+          server = DEVELOPMENT_SERVER
+        else
+          server = "#{options[:reservation_api] ? RESERVATION_SERVER : API_SERVER}"
+        end
         "#{options[:use_ssl] ? "https" : "http"}://#{server}"
       end
 

@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe "Expedia::HTTPService" do
 
+  it "has an DEVELOPMENT_SERVER Constant" do
+    Expedia::HTTPService.constants.should include(:DEVELOPMENT_SERVER)
+  end
+
   it "has an API_SERVER Constant" do
     Expedia::HTTPService.constants.should include(:API_SERVER)
   end
@@ -26,6 +30,11 @@ describe "Expedia::HTTPService" do
 
     it "return server with https when options[:use_ssl]" do
       Expedia::HTTPService.server( {:use_ssl => true }).should eql "https://#{Expedia::HTTPService::API_SERVER}"
+    end
+
+    it "return DEVELOPMENT_SERVER server when cid is 55505" do
+      Expedia.cid = 55505
+      Expedia::HTTPService.server.should =~ Regexp.new(Expedia::HTTPService::DEVELOPMENT_SERVER)
     end
 
   end
