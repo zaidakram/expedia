@@ -1,6 +1,5 @@
 module Expedia
   # All method naming is done in correspondence with Expedia services and ruby conventions
-  # see http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w
   class Api
 
 
@@ -68,9 +67,9 @@ module Expedia
 
     private
 
-    def services(path, args, method=:get)
-      HTTPService.make_request(path, args, method)
-    end
+      def services(path, args, method=:get)
+        HTTPService.make_request(path, args, method)
+      end
 
   end
 end

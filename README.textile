@@ -4,9 +4,9 @@ Expedia is a ruby wrapper for ["EAN - Expedia Affiliate Network":http://www.expe
 
 Other details of this gem are:
 
-* It uses the the latest verion of the EAN API. i.e ["Version 3":http://developer.ean.com/docs/read/hotels/version_3]
+* It uses the the latest verion of the EAN API. i.e ["Version 3":http://developer.ean.com/docs/api-change-log]
 * Only REST API support (No XML or SOAP support)
-* It uses Signature Pro method for Authentication. See ["Live API Key Authentication and Access":http://developer.ean.com/docs/read/getting_started/authentication]
+* It uses Signature Pro method for Authentication. See ["Live API Key Authentication and Access":http://developer.ean.com/docs/getting-started/authentication/]
 
 h2. Installation
 
@@ -53,7 +53,7 @@ After configuring keys, default locale, currency and minor_rev for EAN use
 # Instentiate api object
 api = Expedia::Api.new
 
-# Method to search for a hotel. see http://developer.ean.com/docs/read/hotels/version_3/request_hotel_list
+# Method to search for a hotel. see http://developer.ean.com/docs/hotel-list/
 response = api.get_list({:propertyName => 'Hotel Moa Berlin', :destinationString => 'berlin'})
 
 # execute this method to know if there is any exception
@@ -61,9 +61,6 @@ response.exception? # false if success
 </pre>
 
 Following methods are expeosed by Expedia::API object
-
-**Note**: All method naming is done in correspondence with Expedia services and ruby conventions
-see "Hotel API Documentation - Services section":http://developer.ean.com/docs/read/hotels#.UMf_hiNDt0w
 
 <pre>
 get_list({})
@@ -80,8 +77,6 @@ get_cancel({})
 get_ping({})
 get_static_reservation({}) # To test Reservation (Static Reservation)
 </pre>
-
-Every method accepts Hash of parameter specific to every API. see ["EAN Docs":http://developer.ean.com/docs/read/hotels/version_3] for more details.
 
 h3. Success
 
@@ -115,7 +110,7 @@ h3. Test Booking (Static Reservation)
 
 For Static reservation use @get_static_reservation()@ method.
 
-CAUTION: Do Not send adress and booking information (creditCardNumber, creditCardIdentifier, creditCardExpirationMonth, creditCardExpirationYear, address1) in parameters to the method. Especially do not pass address1 parameter They are already been taken care of. For more on Static booking see ["Static Test Booking Credit Card Information":http://developer.ean.com/docs/Test_Booking_Procedures]
+**CAUTION**: Do Not send adress and booking information (creditCardNumber, creditCardIdentifier, creditCardExpirationMonth, creditCardExpirationYear, address1) in parameters to the method. Especially do not pass address1 parameter They are already been taken care of. For more on Static booking see ["Static Test Booking Credit Card Information":http://developer.ean.com/docs/Test_Booking_Procedures]
 
 A static Booking example.
 
