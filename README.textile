@@ -39,10 +39,10 @@ Expedia.currency_code = 'USD'
 Expedia.minor_rev = 13
 </pre>
 
-Or you can execute the following command to create an intializer:
+Or you can execute the following command to create an intializer (if you are using rails)
 
 <pre>
-$ rake expedia:initialize
+$ rails g expedia:initialize
 </pre>
 
 h2. Usage
@@ -96,7 +96,7 @@ In case of any error a Expedia::APIError object is returned.
 **Note**: Expedia responds with status of 200 even if there is an exception (most of the times). So no Exception is raised!
 
 <pre>
-# See http://developer.ean.com/docs/read/error_handling/Hotel_V3_Exception_Details
+# See http://developer.ean.com/docs/error-handling/hotel-v3-exception-details/
 
 response.status # Response status
 response.error_body # Complete error body
