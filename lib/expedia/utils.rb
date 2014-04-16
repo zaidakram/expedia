@@ -17,7 +17,7 @@ module Expedia
     self.logger.level = Logger::ERROR
 
     # @private
-    DEPRECATION_PREFIX = "EXPEDIA: Deprecation warning: "
+    DEPRECATION_PREFIX = "EXPEDIA: [Deprecation warning] "
 
     # Prints a deprecation message.
     # Each individual message will only be printed once to avoid spamming.

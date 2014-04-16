@@ -12,7 +12,11 @@ require 'expedia/http_service'
 # miscellaneous
 require 'expedia/utils'
 require 'expedia/version'
-require 'expedia/railtie' if defined?(Rails)
+
+if defined?(Rails)
+  require 'expedia/railtie'
+  require 'generators/expedia/initialize_generator'
+end
 
 module Expedia
 
