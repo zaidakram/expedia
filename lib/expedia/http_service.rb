@@ -4,7 +4,7 @@ require 'expedia/http_service/response'
 module Expedia
   module HTTPService
 
-    API_SERVER = 'api.ean.com'
+    API_SERVER = 'api.eancdn.com'
     RESERVATION_SERVER = 'book.api.ean.com'
     DEVELOPMENT_SERVER = 'dev.api.ean.com'
 
