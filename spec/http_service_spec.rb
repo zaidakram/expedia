@@ -35,6 +35,9 @@ describe "Expedia::HTTPService" do
     it "return DEVELOPMENT_SERVER server when cid is 55505" do
       Expedia.stub(:cid).and_return(55505)
       Expedia::HTTPService.server.should =~ Regexp.new(Expedia::HTTPService::DEVELOPMENT_SERVER)
+
+      Expedia.stub(:cid).and_return("55505")
+      Expedia::HTTPService.server.should =~ Regexp.new(Expedia::HTTPService::DEVELOPMENT_SERVER)
     end
 
   end
