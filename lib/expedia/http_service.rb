@@ -61,36 +61,18 @@ module Expedia
         end
       end
 
-      # Encodes a given hash into a query string.
-      #
-      # @param params_hash a hash of values to CGI-encode and appropriately join
-      #
-      # @example
-      #   Expedia.http_service.encode_params({:a => 2, :b => "My String"})
-      #   => "a=2&b=My+String"
-      #
-      # @return the appropriately-encoded string
-      # Method currently not in use.
-      def encode_params(param_hash)
-        ((param_hash || {}).sort_by{|k, v| k.to_s}.collect do |key_and_value|
-           key_and_value[1] = MultiJson.dump(key_and_value[1]) unless key_and_value[1].is_a? String
-           "#{key_and_value[0].to_s}=#{CGI.escape key_and_value[1]}"
-        end).join("&")
-      end
-
-
       # Creates a Signature for Expedia using MD5 Checksum Auth.
       # Shared and Api keys are required for Signature along with the current utc time.
       def signature
         if Expedia.cid && Expedia.api_key && Expedia.shared_secret
-          Digest::MD5.hexdigest(Expedia.api_key+Expedia.shared_secret+Time.now.utc.to_i.to_s)
+          Digest::MD5.hexdigest(Expedia.api_key + Expedia.shared_secret + Time.now.utc.to_i.to_s)
         else
           raise Expedia::AuthCredentialsError, "cid, api_key and shared_secret are required for Expedia Authentication."
         end
       end
 
       # Common Parameters required for every Call to Expedia Server.
-      #
+      # @return [Hash] of all common parameters.
       def common_parameters
         { :cid => Expedia.cid, :sig => signature, :apiKey => Expedia.api_key, :minorRev => Expedia.minor_rev,
           :_type => 'json', :locale => Expedia.locale, :currencyCode => Expedia.currency_code }
