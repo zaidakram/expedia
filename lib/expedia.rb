@@ -25,7 +25,7 @@ module Expedia
     attr_accessor :cid, :api_key, :shared_secret, :format, :locale,
       :currency_code, :minor_rev
 
-    # Default way to setup Expedia. Run rake task to create
+    # Default way to setup Expedia. Run generator to create
     # a fresh initializer with all configuration values.
     def setup
       yield self
