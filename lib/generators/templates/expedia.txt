@@ -4,5 +4,5 @@ Expedia.setup do |config|
 	config.shared_secret = 'your_shared_secret'
 	config.locale = 'en_US' # For Example 'de_DE'. Default is 'en_US'
 	config.currency_code = 'USD' # For Example 'EUR'. Default is 'USD'
-	config.minor_rev = 13 # between 4-19 as of Dec 2012. Default is 4. 19 being latest
+	config.minor_rev = 26 # between 4-26 as of July 2014. Default is 4. 26 being latest
 end
