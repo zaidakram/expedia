@@ -1,4 +1,4 @@
-h1. Expedia
+h1. Expedia !https://travis-ci.org/zaidakram/expedia.svg?branch=master!
 
 Expedia is a ruby wrapper for ["EAN - Expedia Affiliate Network":http://www.expediaaffiliate.com] APIs.
 
