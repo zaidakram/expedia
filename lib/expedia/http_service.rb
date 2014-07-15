@@ -19,7 +19,7 @@ module Expedia
       #
       # @return a complete server address with protocol
       def server(options = {})
-        if Expedia.cid.to_i == 55505
+        if Expedia.cid.to_i == 55505 && !options[:reservation_api]
           server = DEVELOPMENT_SERVER
         else
           server = options[:reservation_api] ? RESERVATION_SERVER : API_SERVER
