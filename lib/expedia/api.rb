@@ -43,7 +43,7 @@ module Expedia
     end
 
     def get_reservation(args)
-      HTTPService.make_request('/ean-services/rs/hotel/v3/res', args, :post, { :reservation_api => true, :use_ssl => true })
+      HTTPService.make_request('/ean-services/rs/hotel/v3/res', args, :post, { :reservation_api => true, :use_ssl => true, :ignore_timeout => true })
     end
 
     def get_payment_info(args)

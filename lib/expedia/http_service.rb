@@ -35,9 +35,11 @@ module Expedia
       # @param conn - Faraday connection object
       #
       # @return the connection obj with the timeouts set if they have been initialized
-      def add_timeouts(conn)
-        conn.options.timeout = Expedia.timeout.to_i if Expedia.timeout.present?
-        conn.options.open_timeout = Expedia.open_timeout.to_i if Expedia.open_timeout.present?
+      def add_timeouts(conn, options)
+        if !options[:ignore_timeout]
+          conn.options.timeout = Expedia.timeout.to_i if Expedia.timeout.present?
+          conn.options.open_timeout = Expedia.open_timeout.to_i if Expedia.open_timeout.present?
+        end
         conn
       end
 
@@ -61,7 +63,7 @@ module Expedia
         request_options = {:params => (verb == :get ? args : {})}
         # set up our Faraday connection
         conn = Faraday.new(server(options), request_options)
-        conn = HTTPService.add_timeouts(conn)
+        conn = HTTPService.add_timeouts(conn, options)
         response = conn.send(verb, path, (verb == :post ? args : {}))
 
         # Log URL and params information
