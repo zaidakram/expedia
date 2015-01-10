@@ -27,6 +27,22 @@ module Expedia
         "#{options[:use_ssl] ? "https" : "http"}://#{server}"
       end
 
+
+      # Adding open and read timeouts
+      #
+      # open timeout - the amount of time you are willing to wait for 'opening a connection'
+      # (read) timeout - the amount of time you are willing to wait for some data to be received from the connected party.
+      # @param conn - Faraday connection object
+      #
+      # @return the connection obj with the timeouts set if they have been initialized
+      def add_timeouts(conn, options)
+        if !options[:ignore_timeout]
+          conn.options.timeout = Expedia.timeout.to_i if Expedia.timeout.present?
+          conn.options.open_timeout = Expedia.open_timeout.to_i if Expedia.open_timeout.present?
+        end
+        conn
+      end
+
       # Makes a request directly to Expedia.
       # @note You'll rarely need to call this method directly.
       #
@@ -47,6 +63,7 @@ module Expedia
         request_options = {:params => (verb == :get ? args : {})}
         # set up our Faraday connection
         conn = Faraday.new(server(options), request_options)
+        conn = HTTPService.add_timeouts(conn, options)
         response = conn.send(verb, path, (verb == :post ? args : {}))
 
         # Log URL and params information

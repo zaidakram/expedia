@@ -23,7 +23,7 @@ module Expedia
   class << self
 
     attr_accessor :cid, :api_key, :shared_secret, :format, :locale,
-      :currency_code, :minor_rev
+      :currency_code, :minor_rev, :timeout, :open_timeout
 
     # Default way to setup Expedia. Run generator to create
     # a fresh initializer with all configuration values.
