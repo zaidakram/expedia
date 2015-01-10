@@ -6,11 +6,9 @@ module Expedia
     # @param args [Hash] All the params required for 'get_list' call
     # @return [Expedia::HTTPService::Response] on success. A response object representing the results from Expedia
     # @return [Expedia::APIError] on Error.
-    # @note A POST request is made instead of GET if 'numberOfResults' > 200
+    # @note A POST request is made instead of GET if 'hotelIdList' length > 200
     def get_list(args)
-      no_of_results = 'numberOfResults'
-      method = (args[no_of_results.to_sym].to_i > 200 || args[no_of_results].to_i > 200) ||
-        args[no_of_results.downcase.to_sym].to_i > 200 || args[no_of_results.downcase].to_i > 200 ? :post : :get
+      method = (args[:hotelIdList] || args["hotelIdList"] || []).length > 200 ? :post : :get
       services('/ean-services/rs/hotel/v3/list', args, method)
     end
 
