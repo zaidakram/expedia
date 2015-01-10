@@ -63,7 +63,7 @@ module Expedia
         request_options = {:params => (verb == :get ? args : {})}
         # set up our Faraday connection
         conn = Faraday.new(server(options), request_options)
-        conn = HTTPService.add_timeouts(conn, options)
+        conn = add_timeouts(conn, options)
         response = conn.send(verb, path, (verb == :post ? args : {}))
 
         # Log URL and params information
