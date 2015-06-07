@@ -126,17 +126,15 @@ response = api.get_static_reservation({	:arrivalDate => "10/10/2013", :departure
 h3. Logging
 
 Expedia::Utils.logger points to STDOUT by default. You can use it to Log in Rails applications.
-default logger level is Logger::ERROR. You can change it by setting
-
-<pre>
-Expedia.logger.level = Logger::DEBUG # Or whatever level you want...
-</pre>
 
 <pre>
 Expedia::Utils.logger = Rails.logger
 
 # And loggig methods available
 [:debug, :info, :warn, :error, :fatal]
+
+# Default logger level is Logger::ERROR. You can change it by setting
+Expedia.logger.level = Logger::DEBUG # Or whatever level you want...
 </pre>
 
 
