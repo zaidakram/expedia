@@ -5,8 +5,8 @@ module Expedia
   module HTTPService
 
     API_SERVER = 'api.eancdn.com'
+    DEVELOPMENT_API_SERVER = 'dev.api.ean.com'
     RESERVATION_SERVER = 'book.api.ean.com'
-    DEVELOPMENT_SERVER = 'dev.api.ean.com'
 
     class << self
 
@@ -20,7 +20,7 @@ module Expedia
       # @return a complete server address with protocol
       def server(options = {})
         if Expedia.cid.to_i == 55505 && !options[:reservation_api]
-          server = DEVELOPMENT_SERVER
+          server = DEVELOPMENT_API_SERVER
         else
           server = options[:reservation_api] ? RESERVATION_SERVER : API_SERVER
         end
@@ -37,8 +37,8 @@ module Expedia
       # @return the connection obj with the timeouts set if they have been initialized
       def add_timeouts(conn, options)
         if !options[:ignore_timeout]
-          conn.options.timeout = Expedia.timeout.to_i if Expedia.timeout.present?
-          conn.options.open_timeout = Expedia.open_timeout.to_i if Expedia.open_timeout.present?
+          conn.options.timeout = Expedia.timeout.to_i if Expedia.timeout
+          conn.options.open_timeout = Expedia.open_timeout.to_i if Expedia.open_timeout
         end
         conn
       end

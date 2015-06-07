@@ -54,7 +54,7 @@ After configuring keys, default locale, currency and minor_rev for EAN use
 api = Expedia::Api.new
 
 # Method to search for a hotel. see http://developer.ean.com/docs/hotel-list/
-response = api.get_list({:propertyName => 'Hotel Moa Berlin', :destinationString => 'berlin'})
+response = api.get_list({:propertyName => 'Hotel Moa', :destinationString => 'berlin'})
 
 # execute this method to know if there is any exception
 response.exception? # false if success
@@ -125,7 +125,12 @@ response = api.get_static_reservation({	:arrivalDate => "10/10/2013", :departure
 
 h3. Logging
 
-Expedia::Utils.logger points to STDOUT by default. You can use it to Log in Rails Applications
+Expedia::Utils.logger points to STDOUT by default. You can use it to Log in Rails applications.
+default logger level is Logger::ERROR. You can change it by setting
+
+<pre>
+Expedia.logger.level = Logger::DEBUG # Or whatever level you want...
+</pre>
 
 <pre>
 Expedia::Utils.logger = Rails.logger
