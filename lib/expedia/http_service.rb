@@ -5,7 +5,9 @@ module Expedia
   module HTTPService
 
     API_SERVER = 'api.eancdn.com'
-    DEVELOPMENT_API_SERVER = 'dev.api.ean.com'
+    # The current development api server doesnot respond
+    # DEVELOPMENT_API_SERVER = 'dev.api.ean.com'
+    DEVELOPMENT_API_SERVER = 'api.ean.com'
     RESERVATION_SERVER = 'book.api.ean.com'
 
     class << self
