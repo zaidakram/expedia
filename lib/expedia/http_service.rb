@@ -5,7 +5,7 @@ module Expedia
   module HTTPService
 
     API_SERVER = 'api.eancdn.com'
-    # The current development api server doesnot respond
+    # The development api server is not reliable. Ofthen gives 400...
     # DEVELOPMENT_API_SERVER = 'dev.api.ean.com'
     DEVELOPMENT_API_SERVER = 'api.ean.com'
     RESERVATION_SERVER = 'book.api.ean.com'
