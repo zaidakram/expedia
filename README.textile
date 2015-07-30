@@ -37,6 +37,7 @@ Expedia.shared_secret = 'your_shared_secret'
 Expedia.locale = 'en_US'
 Expedia.currency_code = 'USD'
 Expedia.minor_rev = 13
+Expedia.use_signature = true # must be false if using ip whitelisting instead of signature
 # Optional configuration...
 Expedia.timeout = 1 # read timeout in sec
 Expedia.open_timeout = 1 # connection timeout in sec
