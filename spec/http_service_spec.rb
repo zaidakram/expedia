@@ -48,6 +48,7 @@ describe "Expedia::HTTPService" do
       Expedia.cid = ''
       Expedia.api_key =''
       Expedia.shared_secret = ''
+      Expedia.use_signature = true
 
     end
 
@@ -62,6 +63,11 @@ describe "Expedia::HTTPService" do
       Expedia::HTTPService.common_parameters.keys.should include(:apiKey)
       Expedia::HTTPService.common_parameters.keys.should include(:sig)
       Expedia::HTTPService.common_parameters.keys.should include(:_type)
+    end
+    
+    it "checks to see if sig is removed from parameters" do
+      Expedia.use_signature = false
+      Expedia::HTTPService.common_parameters.keys.should_not include(:sig)
     end
   end
 

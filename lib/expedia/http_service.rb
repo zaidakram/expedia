@@ -93,8 +93,9 @@ module Expedia
       # Common Parameters required for every Call to Expedia Server.
       # @return [Hash] of all common parameters.
       def common_parameters
-        { :cid => Expedia.cid, :sig => signature, :apiKey => Expedia.api_key, :minorRev => Expedia.minor_rev,
-          :_type => 'json', :locale => Expedia.locale, :currencyCode => Expedia.currency_code }
+        params = { :cid => Expedia.cid, :apiKey => Expedia.api_key, :minorRev => Expedia.minor_rev, :_type => 'json', :locale => Expedia.locale, :currencyCode => Expedia.currency_code }
+        params.merge!(:sig => signature) if Expedia.use_signature
+        return params
       end
 
     end
